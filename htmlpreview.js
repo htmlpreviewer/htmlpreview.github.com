@@ -12,7 +12,7 @@ var HTMLPreview = {
 				referrer = referrer.substring(0, referrer.lastIndexOf('/')+1);
 			}
 			if (! referrer.endsWith('/')) {
-				referrer = referrer + '/';
+				referrer = referrer + '/master/';
 			}
 			return referrer + url;
 		} else {
