@@ -11,9 +11,21 @@ var HTMLPreview = {
 			if (referrer.toLowerCase().endsWith('.md')) {
 				referrer = referrer.substring(0, referrer.lastIndexOf('/')+1);
 			}
-			if (! referrer.endsWith('/')) {
-				referrer = referrer + '/master/';
+
+			var slashEnds = referrer.endsWith('/');
+
+			// if referrer contains "/tree", referrer was probably on a
+			// branch view, let's keep this branch
+			if(referrer.indexOf("/tree/") !== -1) {
+				referrer = referrer.replace("/tree/", "/") + ((!slashEnds) ? "/" : "");
+
+			// referrer wasn't on a branch view, let's assume master
+			// is the default, this handle '/org/repo' and '/org/repo/'
+			} else {
+				referrer = referrer + ((!slashEnds) ? "/" : "") + 'master/';
 			}
+
+
 			return referrer + url;
 		} else {
 			return url;
